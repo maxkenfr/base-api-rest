@@ -1,12 +1,12 @@
 const Boom = require("boom");
 const {RateLimiterRedis, RateLimiterUnion} = require('rate-limiter-flexible');
 
-const {redisSystemClient} = require('../libs/redisSystemClient');
+const redisClient = require('../utils/redisClient');
 const LOG_LABEL = require("../config/logLabel");
 const NODE = require("../config/node");
 
 const createRateLimiter = ({label = "GLOBAL", points = 100, duration = 60})=>new RateLimiterRedis({
-    storeClient: redisSystemClient,
+    storeClient: redisClient,
     keyPrefix: `RATE_LIMITER_${label}`,
     points: points,
     duration: duration,
